@@ -47,6 +47,7 @@ test("browser loads the board and exposes deterministic state", async () => {
     assert.equal(state.mode, "idle");
     assert.deepEqual(state.square, { file: 0, rank: 7 });
     assert.equal(state.assets.loadedFrames, 32);
+    assert.equal(state.assets.cleanedFrames, 32);
     assert.deepEqual(consoleErrors, []);
   } finally {
     await browser.close();

@@ -6,6 +6,7 @@ import {
   resetGame,
   triggerAnimation,
 } from "./game-model.js";
+import { cleanSpriteMatte } from "./sprite-matte.js";
 
 const LOGICAL_SIZE = 1024;
 const BOARD_ORIGIN = 96;
@@ -28,6 +29,8 @@ const assets = {
   metadata: null,
   frames: {},
   loadedFrames: 0,
+  cleanedFrames: 0,
+  removedMattePixels: 0,
 };
 
 let hoverSquare = null;
@@ -43,7 +46,31 @@ function frameUrl(animation, frameNumber) {
 function loadImage(url) {
   return new Promise((resolve, reject) => {
     const image = new Image();
-    image.onload = () => resolve(image);
+    image.onload = () => {
+      const cleanedCanvas = document.createElement("canvas");
+      cleanedCanvas.width = image.naturalWidth;
+      cleanedCanvas.height = image.naturalHeight;
+      const cleanedContext = cleanedCanvas.getContext("2d", {
+        willReadFrequently: true,
+      });
+      cleanedContext.imageSmoothingEnabled = false;
+      cleanedContext.drawImage(image, 0, 0);
+      const source = cleanedContext.getImageData(
+        0,
+        0,
+        cleanedCanvas.width,
+        cleanedCanvas.height,
+      );
+      const cleaned = cleanSpriteMatte(source);
+      cleanedContext.putImageData(
+        new ImageData(cleaned.data, cleaned.width, cleaned.height),
+        0,
+        0,
+      );
+      assets.cleanedFrames += 1;
+      assets.removedMattePixels += cleaned.removedPixels;
+      resolve(cleanedCanvas);
+    };
     image.onerror = () => reject(new Error(`Unable to load ${url}`));
     image.src = url;
   });
@@ -408,6 +435,8 @@ window.render_game_to_text = () =>
       : null,
     assets: {
       loadedFrames: assets.loadedFrames,
+      cleanedFrames: assets.cleanedFrames,
+      removedMattePixels: assets.removedMattePixels,
       ready: state.loaded,
       error: state.error,
     },
