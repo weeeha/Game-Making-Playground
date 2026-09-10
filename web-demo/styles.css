@@ -80,6 +80,8 @@ footer {
 .board-wrap {
   position: relative;
   overflow: hidden;
+  width: min(100%, calc(100vh - 190px));
+  justify-self: center;
   aspect-ratio: 1;
   border: 1px solid rgba(231, 192, 106, 0.3);
   border-radius: clamp(12px, 2.2vw, 24px);
@@ -206,6 +208,10 @@ footer {
   }
 
   .actions {
+    width: 100%;
+  }
+
+  .board-wrap {
     width: 100%;
   }
 
