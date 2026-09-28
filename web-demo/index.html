@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111827" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23183464'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-size='44' fill='%23e4b857'%3E%E2%99%9C%3C/text%3E%3C/svg%3E"
+    />
+    <title>Living Chess — Rook Pilot</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Living Chess · Pilot</p>
+          <h1>The Iron Rook</h1>
+        </div>
+        <p class="instruction">Click along the rook’s row or column to move.</p>
+      </header>
+
+      <section class="board-wrap" aria-label="Game area">
+        <canvas
+          id="game-canvas"
+          width="1024"
+          height="1024"
+          aria-label="Living Chess board"
+        ></canvas>
+        <div class="loading-panel" id="loading-panel" role="status">
+          <span class="loading-mark" aria-hidden="true">♜</span>
+          <span id="loading-copy">Preparing the board…</span>
+        </div>
+      </section>
+
+      <section class="control-bar" aria-label="Animation controls">
+        <div class="actions">
+          <button type="button" data-action="idle" disabled>Idle</button>
+          <button type="button" data-action="strike" disabled>Strike</button>
+          <button type="button" data-action="death" disabled>Death</button>
+          <button type="button" class="secondary" data-action="reset" disabled>
+            Reset
+          </button>
+        </div>
+        <p id="status" class="status" aria-live="polite">Loading 32 frames…</p>
+      </section>
+
+      <footer>
+        <span>F · Fullscreen</span>
+        <span>Fixed-camera 2.5D study</span>
+      </footer>
+    </main>
+    <script type="module" src="./game.js"></script>
+  </body>
+</html>
