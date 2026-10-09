@@ -1,9 +1,12 @@
 # Game-Making-Playground
 
+![The Iron Rook on the Living Chess board](docs/screenshots/living-chess-rook.webp)
+
 ## Living Chess rook pilot
 
 A fixed-camera 2.5D browser prototype with an animated pixel-art rook, legal
 horizontal and vertical movement, and Idle, Strike, Death, and Reset controls.
+Press F for fullscreen.
 
 Run it from the repository root:
 
@@ -19,3 +22,9 @@ Run the automated tests with:
 cd web-demo
 npm test
 ```
+
+`web-demo/package.json` declares no dependencies, but `tests/browser-smoke.test.mjs`
+imports `playwright`, so that package (with a Chromium build) must be installed
+for the browser test to run.
+
+Design notes are in `docs/superpowers/specs/` and `docs/superpowers/plans/`.
